@@ -1,0 +1,29 @@
+ext{
+    //android开发版本配置
+    android=[
+            compileSdkVersion: 29,
+            buildToolsVersion: "29.0.3",
+            applicationId    : "com.bamboo.sample",
+            minSdkVersion    : 21,
+            targetSdkVersion : 29,
+            versionCode      : 1,
+            versionName      : "0.01",
+    ]
+
+    //version配置
+    versions=[
+
+    ]
+
+    //androidx配置
+    androidx=[
+
+    ]
+
+    //依赖第三方配置
+    dependencies=[
+
+    ]
+
+
+}
