@@ -1,31 +1,33 @@
 package com.bamboo.common.base;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.alibaba.android.arouter.launcher.ARouter;
+
+import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import dagger.android.AndroidInjection;
+import dagger.android.AndroidInjector;
+import dagger.android.DispatchingAndroidInjector;
+import dagger.android.HasAndroidInjector;
 
-/**
- * 项目名称：CommonLibrary
- *
- * @Author bamboolife
- * 邮箱：core_it@163.com
- * 创建时间：2019-11-15 21:52
- * 描述：AppCompatActivity基类
- */
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity {//implements HasAndroidInjector
+
     protected Context mContext;
     protected Activity mActivity;
     private Unbinder mUnbinder=null;
+//    @Inject
+//    DispatchingAndroidInjector<Object> androidInjector;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //AndroidInjection.inject(this);
         super.onCreate(savedInstanceState);
         mContext=getApplicationContext();
         mActivity=this;
@@ -72,4 +74,9 @@ public abstract class BaseActivity extends AppCompatActivity {
             mUnbinder.unbind();
         }
     }
+
+//    @Override
+//    public AndroidInjector<Object> androidInjector() {
+//        return androidInjector;
+//    }
 }

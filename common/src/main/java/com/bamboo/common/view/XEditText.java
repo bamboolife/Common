@@ -84,7 +84,7 @@ public class XEditText extends AppCompatEditText {
         mTextWatcher = new MyTextWatcher();
         this.addTextChangedListener(mTextWatcher);
 
-        setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        setOnFocusChangeListener(new OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 hasFocused = hasFocus;

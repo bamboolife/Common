@@ -8,7 +8,7 @@ import android.text.SpannableStringBuilder;
 import android.text.style.StyleSpan;
 
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -44,7 +44,8 @@ public class ToastActivity extends BaseActivity {
     @Override
     protected void initViews(Bundle savedInstanceState) {
         initRecyclerView();
-        mBaseViewModel= ViewModelProviders.of(this,new ViewModelFactory(mContext)).get(BaseViewModel.class);
+
+        mBaseViewModel= new ViewModelProvider(this,new ViewModelFactory(mContext)).get(BaseViewModel.class);
         mBaseViewModel.getDatas().observe(this, new Observer<List<CommonBean>>() {
             @Override
             public void onChanged(List<CommonBean> commonBeans) {

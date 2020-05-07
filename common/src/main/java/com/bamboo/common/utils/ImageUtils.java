@@ -117,4 +117,5 @@ public class ImageUtils {
         Bitmap bmp = BitmapFactory.decodeByteArray(tmp, 0, tmp.length);
         return bmp;
     }
+
 }

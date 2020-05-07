@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+    <shortcut
+        android:enabled="true"
+        android:icon="@mipmap/ic_launcher"
+        android:shortcutId="main"
+        android:shortcutLongLabel="@string/info_toast"
+        android:shortcutShortLabel="@string/title_home">
+        <!-- android:enabled="true" 该二级菜单是否可用
+        android:shortcutDisabledMessage="@string/settings_disable_msg"> //不可用时显示的文字-->
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass="com.bamboo.sample.MainActivity"
+            android:targetPackage="com.bamboo.simple" />
+        <categories android:name="android.shortcut.conversation" />
+    </shortcut>
+
+
+</shortcuts>

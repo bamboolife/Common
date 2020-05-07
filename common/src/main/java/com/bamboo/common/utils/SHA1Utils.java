@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 
 import java.security.MessageDigest;
 import java.util.Locale;
+
 /**
  * 项目名称：CommonLibrary
  *

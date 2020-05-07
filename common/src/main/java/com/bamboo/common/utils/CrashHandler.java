@@ -1,5 +1,6 @@
 package com.bamboo.common.utils;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -9,8 +10,12 @@ import android.os.Looper;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.bamboo.common.BuildConfig;
+
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.io.Writer;
@@ -45,7 +50,10 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
 
     //用于格式化日期,作为日志文件名的一部分  
     private DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss", Locale.CHINA);
-
+    /**
+     * 错误报告文件的扩展名
+     */
+    private static final String CRASH_REPORTER_EXTENSION = ".text";
     /**
      * 保证只有一个CrashHandler实例
      */
@@ -172,11 +180,8 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
             long timestamp = System.currentTimeMillis();
             String time = formatter.format(new Date());
             String fileName = "crash-" + time + "-" + timestamp + ".log";
-            String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/app_crash/";
-            File dir = new File(path);
-            if (!dir.exists()) {
-                dir.mkdirs();
-            }
+            String path = getCrashFilePath(mContext);
+
             FileOutputStream fos = new FileOutputStream(path + fileName);
             fos.write(sb.toString().getBytes());
             fos.close();
@@ -186,4 +191,82 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
         }
         return null;
     }
+    /**
+     * 保存错误信息到文件中
+     *
+     * @param ex
+     * @return
+     */
+    private void saveCrashInfoToFile(Throwable ex) {
+        Writer info = new StringWriter();
+        PrintWriter printWriter = new PrintWriter(info);
+        ex.printStackTrace(printWriter);
+        Throwable cause = ex.getCause();
+        while (cause != null) {
+            cause.printStackTrace(printWriter);
+            cause = cause.getCause();
+        }
+        String result = info.toString();
+        printWriter.close();
+        StringBuilder sb = new StringBuilder();
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.CHINA);
+        String now = sdf.format(new Date());
+        sb.append("TIME:").append(now);//崩溃时间
+        //程序信息
+        sb.append("\nAPPLICATION_ID:").append(BuildConfig.APPLICATION_ID);//软件APPLICATION_ID
+        sb.append("\nVERSION_CODE:").append(BuildConfig.VERSION_CODE);//软件版本号
+        sb.append("\nVERSION_NAME:").append(BuildConfig.VERSION_NAME);//VERSION_NAME
+        sb.append("\nBUILD_TYPE:").append(BuildConfig.BUILD_TYPE);//是否是DEBUG版本
+        //设备信息
+        sb.append("\nMODEL:").append(android.os.Build.MODEL);
+        sb.append("\nRELEASE:").append(Build.VERSION.RELEASE);
+        sb.append("\nSDK:").append(Build.VERSION.SDK_INT);
+        sb.append("\nEXCEPTION:").append(ex.getLocalizedMessage());
+        sb.append("\nSTACK_TRACE:").append(result);
+        try {
+            FileWriter writer = new FileWriter(getCrashFilePath(mContext) + now + CRASH_REPORTER_EXTENSION);
+            writer.write(sb.toString());
+            writer.flush();
+            writer.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 获取文件夹路径
+     *
+     * @param context
+     * @return
+     */
+    private static String getCrashFilePath(Context context) {
+        String path = null;
+        try {
+            path = Environment.getExternalStorageDirectory().getCanonicalPath() + "/Crash/";
+            File file = new File(path);
+            if (!file.exists()) {
+                file.mkdirs();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return path;
+    }
+    /**
+     * 获取错误报告文件路径
+     *
+     * @param ctx
+     * @return
+     */
+    public static String[] getCrashReportFiles(Context ctx) {
+        File filesDir = new File(getCrashFilePath(ctx));
+        String[] fileNames = filesDir.list();
+        int length = fileNames.length;
+        String[] filePaths = new String[length];
+        for (int i = 0; i < length; i++) {
+            filePaths[i] = getCrashFilePath(ctx) + fileNames[i];
+        }
+        return filePaths;
+    }
+
 }  

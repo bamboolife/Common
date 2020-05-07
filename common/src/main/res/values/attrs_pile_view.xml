@@ -1,0 +1,6 @@
+<resources>
+    <declare-styleable name="PileView">
+        <attr name="pv_vertivalSpace" format="dimension" />
+        <attr name="pv_pileWidth" format="dimension" />
+    </declare-styleable>
+</resources>

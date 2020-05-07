@@ -8,13 +8,19 @@ package com.bamboo.sample.bean;
  * 创建时间：2020-02-10 17:31
  * 描述：
  */
-public class CommonBean {
+public  class CommonBean {
     private int resId;
     private String title;
     private String description;
+    private String type;
 
     public CommonBean(String title) {
         this.title = title;
+    }
+
+    public CommonBean(String title, String type) {
+        this.title = title;
+        this.type = type;
     }
 
     public int getResId() {
@@ -39,5 +45,13 @@ public class CommonBean {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

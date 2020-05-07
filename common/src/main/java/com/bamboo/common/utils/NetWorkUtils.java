@@ -5,7 +5,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkCapabilities;
 import android.net.NetworkInfo;
 import android.os.Build;
-import android.telephony.TelephonyManager;
 
 import androidx.annotation.NonNull;
 
@@ -18,6 +17,13 @@ import androidx.annotation.NonNull;
  * 描述：
  */
 public class NetWorkUtils {
+    /**
+     * 标记当前网络状态，分别是：移动数据、Wifi、未连接
+     */
+    public enum State {
+        MOBILE, WIFI, UN_CONNECTED
+    }
+
 
     /**
      * 网络是否已连接
@@ -65,6 +71,7 @@ public class NetWorkUtils {
 
     /**
      * 是否为流量
+     *
      * @param context
      * @return
      */
@@ -84,59 +91,22 @@ public class NetWorkUtils {
         return false;
     }
 
-//    public static NetworkType getNetworkType(Context context) {
-//        Network
-//        NetworkType netType = NetworkType.NETWORK_NO;
-//        NetworkInfo info = getActiveNetworkInfo(context);
-//        if (info != null && info.isAvailable()) {
-//
-//            if (info.getType() == ConnectivityManager.TYPE_WIFI) {
-//                netType = NetworkType.NETWORK_WIFI;
-//            } else if (info.getType() == ConnectivityManager.TYPE_MOBILE) {
-//                switch (info.getSubtype()) {
-//
-//                    case TelephonyManager.NETWORK_TYPE_TD_SCDMA:
-//                    case TelephonyManager.NETWORK_TYPE_EVDO_A:
-//                    case TelephonyManager.NETWORK_TYPE_UMTS:
-//                    case TelephonyManager.NETWORK_TYPE_EVDO_0:
-//                    case TelephonyManager.NETWORK_TYPE_HSDPA:
-//                    case TelephonyManager.NETWORK_TYPE_HSUPA:
-//                    case TelephonyManager.NETWORK_TYPE_HSPA:
-//                    case TelephonyManager.NETWORK_TYPE_EVDO_B:
-//                    case TelephonyManager.NETWORK_TYPE_EHRPD:
-//                    case TelephonyManager.NETWORK_TYPE_HSPAP:
-//                        netType = NetworkType.NETWORK_3G;
-//                        break;
-//
-//                    case TelephonyManager.NETWORK_TYPE_LTE:
-//                    case TelephonyManager.NETWORK_TYPE_IWLAN:
-//                        netType = NetworkType.NETWORK_4G;
-//                        break;
-//
-//                    case TelephonyManager.NETWORK_TYPE_GSM:
-//                    case TelephonyManager.NETWORK_TYPE_GPRS:
-//                    case TelephonyManager.NETWORK_TYPE_CDMA:
-//                    case TelephonyManager.NETWORK_TYPE_EDGE:
-//                    case TelephonyManager.NETWORK_TYPE_1xRTT:
-//                    case TelephonyManager.NETWORK_TYPE_IDEN:
-//                        netType = NetworkType.NETWORK_2G;
-//                        break;
-//                    default:
-//                        String subtypeName = info.getSubtypeName();
-//                        if (subtypeName.equalsIgnoreCase("TD-SCDMA")
-//                                || subtypeName.equalsIgnoreCase("WCDMA")
-//                                || subtypeName.equalsIgnoreCase("CDMA2000")) {
-//                            netType = NetworkType.NETWORK_3G;
-//                        } else {
-//                            netType = NetworkType.NETWORK_UNKNOWN;
-//                        }
-//                        break;
-//                }
-//            } else {
-//                netType = NetworkType.NETWORK_UNKNOWN;
-//            }
-//        }
-//        return netType;
-//    }
+    /**
+     * 获取网络类型  如果当前界面是比较耗流量的最好友好的提示用户
+     * @param context
+     * @return
+     */
+    public static State getNatWorkState(Context context) {
+        State state = State.UN_CONNECTED;
+
+        if (isWifiConnected(context)) {
+            state = State.WIFI;
+        } else if (isMobileData(context)) {
+            state = State.MOBILE;
+        }
+
+        return state;
+
+    }
 
 }

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.bamboo.common.view.CircleImageView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/circleImage"
+    android:layout_marginLeft="-30dp"
+    android:layout_width="50dp"
+    android:gravity="center"
+    android:layout_height="50dp">
+
+</com.bamboo.common.view.CircleImageView>

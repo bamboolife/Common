@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.os.Bundle;
-
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.TypedValue;

@@ -1,4 +1,4 @@
-package com.bamboo.common.broadcat;
+package com.bamboo.common.broadcast;
 
 import android.content.Context;
 import android.content.IntentFilter;

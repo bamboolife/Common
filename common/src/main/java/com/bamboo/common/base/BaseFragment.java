@@ -4,19 +4,20 @@ package com.bamboo.common.base;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 
+import androidx.fragment.app.Fragment;
+
 import com.alibaba.android.arouter.launcher.ARouter;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import dagger.android.AndroidInjection;
+import dagger.android.AndroidInjector;
 
 /**
  * 项目名称：CommonLibrary
@@ -35,6 +36,7 @@ public abstract class BaseFragment extends Fragment {
      */
     protected View mView;
     Unbinder mUnbinder;
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);

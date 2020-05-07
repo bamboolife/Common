@@ -5,6 +5,11 @@ import android.app.Application;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.haohaohu.cachemanage.CacheUtil;
 import com.haohaohu.cachemanage.CacheUtilConfig;
+import com.orhanobut.logger.AndroidLogAdapter;
+import com.orhanobut.logger.FormatStrategy;
+import com.orhanobut.logger.LogStrategy;
+import com.orhanobut.logger.Logger;
+import com.orhanobut.logger.PrettyFormatStrategy;
 
 import butterknife.ButterKnife;
 
@@ -72,9 +77,20 @@ public class ThirdHelper {
 
         return this;
     }
+public ThirdHelper initLogger(){
+    FormatStrategy formatStrategy = PrettyFormatStrategy.newBuilder()
+            .showThreadInfo(false)  // (Optional) Whether to show thread info or not. Default true
+            .methodCount(0)         // (Optional) How many method line to show. Default 2
+            .methodOffset(7)        // (Optional) Hides internal method calls up to offset. Default 5
+           // .logStrategy() // (Optional) Changes the log strategy to print out. Default LogCat
+            .tag("bamboo")   // (Optional) Global tag for every log. Default PRETTY_LOGGER
+            .build();
 
+    Logger.addLogAdapter(new AndroidLogAdapter(formatStrategy));
+        return this;
+}
     /**
-     * 第三方资源销毁
+     * 第三方资源销毁 应用退出时销毁资源
      * @return
      */
     public ThirdHelper release(){
