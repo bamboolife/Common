@@ -24,7 +24,7 @@ import butterknife.ButterKnife;
  * @Author bamboolife
  * 邮箱：core_it@163.com
  * 创建时间：2020/5/7 11:28 AM
- * 描述：
+ * 描述：头像叠加控件
  */
 public class PileAvertView extends LinearLayout {
 

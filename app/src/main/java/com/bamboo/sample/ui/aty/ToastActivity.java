@@ -22,6 +22,7 @@ import com.bamboo.sample.adapter.CommonAdapter;
 import com.bamboo.sample.bean.CommonBean;
 import com.bamboo.sample.viewmodel.BaseViewModel;
 import com.bamboo.sample.viewmodel.ViewModelFactory;
+import com.google.android.material.internal.FlowLayout;
 
 import java.util.List;
 

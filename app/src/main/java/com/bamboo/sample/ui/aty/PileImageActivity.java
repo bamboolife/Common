@@ -1,12 +1,14 @@
 package com.bamboo.sample.ui.aty;
 
 import android.os.Bundle;
+import android.widget.Button;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.bamboo.common.base.BaseActivity;
+import com.bamboo.common.view.FlowLayout;
 import com.bamboo.common.view.PileAvertView;
 import com.bamboo.sample.R;
 import com.bamboo.sample.adapter.PileAdapter;
@@ -16,13 +18,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+
 @Route(path = "/test/pv")
 public class PileImageActivity extends BaseActivity {
     @BindView(R.id.pileAvertView)
-   PileAvertView mPileAvertView;
+    PileAvertView mPileAvertView;
     @BindView(R.id.recyclerView)
     RecyclerView mRecyclerView;
     PileAdapter mPileAdapter;
+    //点赞
+    Button zanLayout,zanLayoutOne;
+    //取消点赞
+    Button cancelLayout,cancelLayoutOne;
+    //流布局
+    FlowLayout flowLayout;
+    FlowLayout flowLayoutOne;
+
     @Override
     protected int getLayoutId() {
         return R.layout.bbl_pile_image_layout;
@@ -30,7 +41,7 @@ public class PileImageActivity extends BaseActivity {
 
     @Override
     protected void initViews(Bundle savedInstanceState) {
-        List<String> urls=new ArrayList<>();
+        List<String> urls = new ArrayList<>();
         urls.clear();
         urls.add("http://tupian.qqw21.com/article/UploadPic/2020-4/2020462134735274.jpg");
         urls.add("http://f.hiphotos.baidu.com/zhidao/pic/item/ac345982b2b7d0a2a14af2cbcbef76094a369ae1.jpg");
@@ -45,36 +56,41 @@ public class PileImageActivity extends BaseActivity {
     }
 
     private void initRecyclerView() {
-        LinearLayoutManager linearLayoutManager=new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         linearLayoutManager.setStackFromEnd(false);
         mRecyclerView.setLayoutManager(linearLayoutManager);
-        mPileAdapter=new PileAdapter(getData());
+        mPileAdapter = new PileAdapter(getData());
         mRecyclerView.setAdapter(mPileAdapter);
     }
 
     private List<HeadBean> getData() {
-        List<HeadBean> items=new ArrayList<>();
+        List<HeadBean> items = new ArrayList<>();
         items.add(new HeadBean("http://tupian.qqw21.com/article/UploadPic/2020-4/2020462134735274.jpg"));
         items.add(new HeadBean("http://f.hiphotos.baidu.com/zhidao/pic/item/ac345982b2b7d0a2a14af2cbcbef76094a369ae1.jpg"));
         items.add(new HeadBean("http://cdn.duitang.com/uploads/item/201505/17/20150517130829_BsaMJ.jpeg"));
         items.add(new HeadBean("http://b-ssl.duitang.com/uploads/item/201706/17/20170617202755_vasTA.thumb.700_0.jpeg"));
-        items.add(new HeadBean("http://image.biaobaiju.com/uploads/20180801/21/1533131259-UXyVrsukOo.jpg")); items.add(new HeadBean("http://tupian.qqw21.com/article/UploadPic/2020-4/2020462134735274.jpg"));
+        items.add(new HeadBean("http://image.biaobaiju.com/uploads/20180801/21/1533131259-UXyVrsukOo.jpg"));
+        items.add(new HeadBean("http://tupian.qqw21.com/article/UploadPic/2020-4/2020462134735274.jpg"));
         items.add(new HeadBean("http://f.hiphotos.baidu.com/zhidao/pic/item/ac345982b2b7d0a2a14af2cbcbef76094a369ae1.jpg"));
         items.add(new HeadBean("http://cdn.duitang.com/uploads/item/201505/17/20150517130829_BsaMJ.jpeg"));
         items.add(new HeadBean("http://b-ssl.duitang.com/uploads/item/201706/17/20170617202755_vasTA.thumb.700_0.jpeg"));
-        items.add(new HeadBean("http://image.biaobaiju.com/uploads/20180801/21/1533131259-UXyVrsukOo.jpg")); items.add(new HeadBean("http://tupian.qqw21.com/article/UploadPic/2020-4/2020462134735274.jpg"));
+        items.add(new HeadBean("http://image.biaobaiju.com/uploads/20180801/21/1533131259-UXyVrsukOo.jpg"));
+        items.add(new HeadBean("http://tupian.qqw21.com/article/UploadPic/2020-4/2020462134735274.jpg"));
         items.add(new HeadBean("http://f.hiphotos.baidu.com/zhidao/pic/item/ac345982b2b7d0a2a14af2cbcbef76094a369ae1.jpg"));
         items.add(new HeadBean("http://cdn.duitang.com/uploads/item/201505/17/20150517130829_BsaMJ.jpeg"));
         items.add(new HeadBean("http://b-ssl.duitang.com/uploads/item/201706/17/20170617202755_vasTA.thumb.700_0.jpeg"));
-        items.add(new HeadBean("http://image.biaobaiju.com/uploads/20180801/21/1533131259-UXyVrsukOo.jpg")); items.add(new HeadBean("http://tupian.qqw21.com/article/UploadPic/2020-4/2020462134735274.jpg"));
+        items.add(new HeadBean("http://image.biaobaiju.com/uploads/20180801/21/1533131259-UXyVrsukOo.jpg"));
+        items.add(new HeadBean("http://tupian.qqw21.com/article/UploadPic/2020-4/2020462134735274.jpg"));
         items.add(new HeadBean("http://f.hiphotos.baidu.com/zhidao/pic/item/ac345982b2b7d0a2a14af2cbcbef76094a369ae1.jpg"));
         items.add(new HeadBean("http://cdn.duitang.com/uploads/item/201505/17/20150517130829_BsaMJ.jpeg"));
         items.add(new HeadBean("http://b-ssl.duitang.com/uploads/item/201706/17/20170617202755_vasTA.thumb.700_0.jpeg"));
-        items.add(new HeadBean("http://image.biaobaiju.com/uploads/20180801/21/1533131259-UXyVrsukOo.jpg")); items.add(new HeadBean("http://tupian.qqw21.com/article/UploadPic/2020-4/2020462134735274.jpg"));
+        items.add(new HeadBean("http://image.biaobaiju.com/uploads/20180801/21/1533131259-UXyVrsukOo.jpg"));
+        items.add(new HeadBean("http://tupian.qqw21.com/article/UploadPic/2020-4/2020462134735274.jpg"));
         items.add(new HeadBean("http://f.hiphotos.baidu.com/zhidao/pic/item/ac345982b2b7d0a2a14af2cbcbef76094a369ae1.jpg"));
         items.add(new HeadBean("http://cdn.duitang.com/uploads/item/201505/17/20150517130829_BsaMJ.jpeg"));
         items.add(new HeadBean("http://b-ssl.duitang.com/uploads/item/201706/17/20170617202755_vasTA.thumb.700_0.jpeg"));
-        items.add(new HeadBean("http://image.biaobaiju.com/uploads/20180801/21/1533131259-UXyVrsukOo.jpg")); items.add(new HeadBean("http://tupian.qqw21.com/article/UploadPic/2020-4/2020462134735274.jpg"));
+        items.add(new HeadBean("http://image.biaobaiju.com/uploads/20180801/21/1533131259-UXyVrsukOo.jpg"));
+        items.add(new HeadBean("http://tupian.qqw21.com/article/UploadPic/2020-4/2020462134735274.jpg"));
         items.add(new HeadBean("http://f.hiphotos.baidu.com/zhidao/pic/item/ac345982b2b7d0a2a14af2cbcbef76094a369ae1.jpg"));
         items.add(new HeadBean("http://cdn.duitang.com/uploads/item/201505/17/20150517130829_BsaMJ.jpeg"));
         items.add(new HeadBean("http://b-ssl.duitang.com/uploads/item/201706/17/20170617202755_vasTA.thumb.700_0.jpeg"));
