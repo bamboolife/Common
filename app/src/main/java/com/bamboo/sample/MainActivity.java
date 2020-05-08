@@ -64,6 +64,7 @@ public class MainActivity extends BaseActivity {
 //        initWindowManager();
 //        createFloatView("test");
         requestNotification();
+        //test
     }
 
     private void init() {
